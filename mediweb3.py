@@ -76,7 +76,7 @@ from giza_actions.action import action
 from giza_actions.task import task
 
 MODEL_ID = 505  # Update with your model ID
-VERSION_ID = 20  # Update with your version ID
+VERSION_ID = 21  # Update with your version ID
 
 
 @task(name="PredictDTModel")
