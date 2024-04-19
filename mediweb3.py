@@ -70,37 +70,3 @@ torch.onnx.export(model,
                   output_names=['output'],  # the model's output names
                   dynamic_axes={'input': {0: 'batch_size'},  # variable length axes
                                 'output': {0: 'batch_size'}})
-
-from giza_actions.model import GizaModel
-from giza_actions.action import action
-from giza_actions.task import task
-
-MODEL_ID = 505  # Update with your model ID
-VERSION_ID = 21  # Update with your version ID
-
-
-@task(name="PredictDTModel")
-def prediction(input, model_id, version_id):
-    model = GizaModel(id=model_id, version=version_id)
-
-    (result, proof_id) = model.predict(
-        input_feed={'input': input}, 
-        verifiable=True,
-        custom_output_dtype="(Tensor<i32>, Tensor<FP16x16>)" # Decision Tree will always have this output dtype.
-    )
-
-    return result, proof_id
-
-
-@action(name="ExectuteCairoDT", log_prints=True)
-def execution():
-    # The input data type should match the model's expected input
-    input = input_sample.numpy()
-
-    (result, proof_id) = prediction(input, MODEL_ID, VERSION_ID)
-    print("Result:", result)
-    print("Proof ID:", proof_id)
-
-    return result, proof_id
-
-execution()
