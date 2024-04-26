@@ -1,13 +1,14 @@
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
 import onnx
 from skl2onnx.common.data_types import FloatTensorType
 from skl2onnx import convert_sklearn
+import torch
 
 # Load the CSV file into a pandas DataFrame
 df = pd.read_csv("MedicalData.csv")
@@ -46,7 +47,40 @@ onnx_model = convert_sklearn(model, initial_types=initial_type)
 # Save the ONNX model to a file
 onnx.save(onnx_model, "decision_tree.onnx")
 
-# Define the input sample for ONNX model
-input_sample = X_test[:1].values.astype(np.float32)  # Convert DataFrame to NumPy array
+# Define the input sample for ONNX model using torch.from_numpy
+input_sample = torch.from_numpy(X_test[:1].values.astype(np.float32))
 
 print("ONNX Model exported successfully!")
+
+from giza_actions.model import GizaModel
+from giza_actions.action import action
+from giza_actions.task import task
+
+MODEL_ID =  505 # Update with your model ID
+VERSION_ID = 28 # Update with your version ID
+
+
+@task(name="PredictDTModel")
+def prediction(input, model_id, version_id):
+    model = GizaModel(id=model_id, version=version_id)
+
+    (result, proof_id) = model.predict(
+        input_feed={'input': input}, 
+        verifiable=True,
+        custom_output_dtype="(Tensor<i32>, Tensor<FP16x16>)" # Decision Tree will always have this output dtype.
+    )
+
+    return result, proof_id
+
+
+@action(name="ExectuteCairoDT", log_prints=True)
+def execution():
+    # The input data type should match the model's expected input
+    input = input_sample.numpy()
+
+    (result, proof_id) = prediction(input, MODEL_ID, VERSION_ID)
+
+    return result, proof_id
+
+
+execution()

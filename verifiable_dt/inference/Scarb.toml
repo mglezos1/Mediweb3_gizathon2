@@ -1,0 +1,19 @@
+[package]
+name = "inference"
+version = "0.1.0"
+edition = "2023_10"
+
+[dependencies]
+treeensembleregressor_nodes_falsenodeids = { path = "../attributes/treeensembleregressor_nodes_falsenodeids"} 
+treeensembleregressor_nodes_featureids = { path = "../attributes/treeensembleregressor_nodes_featureids"} 
+treeensembleregressor_nodes_missing_value_tracks_true = { path = "../attributes/treeensembleregressor_nodes_missing_value_tracks_true"} 
+treeensembleregressor_nodes_modes = { path = "../attributes/treeensembleregressor_nodes_modes"} 
+treeensembleregressor_nodes_nodeids = { path = "../attributes/treeensembleregressor_nodes_nodeids"} 
+treeensembleregressor_nodes_treeids = { path = "../attributes/treeensembleregressor_nodes_treeids"} 
+treeensembleregressor_nodes_truenodeids = { path = "../attributes/treeensembleregressor_nodes_truenodeids"} 
+treeensembleregressor_nodes_values = { path = "../attributes/treeensembleregressor_nodes_values"} 
+treeensembleregressor_target_ids = { path = "../attributes/treeensembleregressor_target_ids"} 
+treeensembleregressor_target_nodeids = { path = "../attributes/treeensembleregressor_target_nodeids"} 
+treeensembleregressor_target_treeids = { path = "../attributes/treeensembleregressor_target_treeids"} 
+treeensembleregressor_target_weights = { path = "../attributes/treeensembleregressor_target_weights"} 
+orion = { git = "https://github.com/gizatechxyz/orion.git", rev = "57871a4" } 
