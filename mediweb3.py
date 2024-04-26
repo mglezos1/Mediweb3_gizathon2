@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import onnx
+from skl2onnx.common.data_types import FloatTensorType
 from skl2onnx import convert_sklearn
-from skl2onnx.common.data_types import FloatTensorType  # Add this import
 
 # Load the CSV file into a pandas DataFrame
-df = pd.read_csv("Comparing_rain_and_Dengue.csv")
+df = pd.read_csv("MedicalData.csv")
 
 # Plot the correlation between Dengue Cases and Average Precipitation
 plt.figure(figsize=(8, 6))
@@ -45,3 +45,8 @@ onnx_model = convert_sklearn(model, initial_types=initial_type)
 
 # Save the ONNX model to a file
 onnx.save(onnx_model, "decision_tree.onnx")
+
+# Define the input sample for ONNX model
+input_sample = X_test[:1].values.astype(np.float32)  # Convert DataFrame to NumPy array
+
+print("ONNX Model exported successfully!")

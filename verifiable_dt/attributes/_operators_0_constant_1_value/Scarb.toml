@@ -1,7 +1,0 @@
-[package]
-name = "_operators_0_constant_1_value"
-version = "0.1.0"
-edition = "2023_10"
-
-[dependencies]
-orion = { git = "https://github.com/gizatechxyz/orion.git", rev = "57871a4" } 
