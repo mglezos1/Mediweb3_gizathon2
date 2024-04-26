@@ -56,8 +56,8 @@ from giza_actions.model import GizaModel
 from giza_actions.action import action
 from giza_actions.task import task
 
-MODEL_ID =  505 # Update with your model ID
-VERSION_ID = 28 # Update with your version ID
+MODEL_ID =  505 
+VERSION_ID = 28 
 
 
 @task(name="PredictDTModel")
@@ -67,15 +67,14 @@ def prediction(input, model_id, version_id):
     (result, proof_id) = model.predict(
         input_feed={'input': input}, 
         verifiable=True,
-        custom_output_dtype="(Tensor<i32>, Tensor<FP16x16>)" # Decision Tree will always have this output dtype.
-    )
+        custom_output_dtype="(Tensor<i32>, Tensor<FP16x16>)" 
 
     return result, proof_id
 
 
 @action(name="ExectuteCairoDT", log_prints=True)
 def execution():
-    # The input data type should match the model's expected input
+  
     input = input_sample.numpy()
 
     (result, proof_id) = prediction(input, MODEL_ID, VERSION_ID)
