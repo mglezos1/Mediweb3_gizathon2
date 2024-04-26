@@ -1,5 +1,16 @@
-Patient Name,Phone Number,email,Weight,Height,Virus,Company Test
-Jane Smith,555-555-5555,janesmith@gmail.com,155,5'5,Positive,A
-John Doe,555-555-5544,jdoe@gmail.com,155,5'6,Positive,B
-Jose Gonsalez,555-555-4444,JG@gmail.com,155,5'9,Negave,A
-Gabriella Escobar,555-466-6444,ge@gmail.com,154,5'3,Positive,A
+Week,Dengue Cases,Average Percipitation
+1,41,4.114285543
+2,91,0.5142857571
+3,110,5
+4,125,5.971428429
+5,230,1.971428557
+6,428,0.6285714286
+7,730,2.328571429
+8,1241,1.5428572
+9,1604,2.942857007
+10,1722,3.528571443
+11,1900,2.257143
+12,1679,2.371428543
+13,1935,4.742857243
+14,2146,0.9714285714
+15,1725,1.683333283
